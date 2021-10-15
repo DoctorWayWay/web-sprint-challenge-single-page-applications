@@ -35,18 +35,26 @@ Commit your code regularly and meaningfully. This helps both you (in case you ev
 Demonstrate your understanding of this week's concepts by answering the following free-form questions. Edit this document to include your answers after each question.
 
 1. In 1-2 sentences, explain what React's `useRouteMatch` hook is used for.
-1. How would you explain form validation to someone who has never programmed before?
-1. In 1-2 sentences, define end to end testing.
+
+- Similar to the `Route` hook in `react-router-dom`, the `useRouteMatch` hook tries to match the current URL, though in a more dynamic maner. It returns a `match` object, which contains information on the route path to the matched URL. It is mainly used when nesting a bunch of paths. It also can show the `match` object without rendering the `Route`.
+
+2. How would you explain form validation to someone who has never programmed before?
+
+- Form validation is when your form application provides the user input on what needs to be filled out to have a valid filled form.
+
+3. In 1-2 sentences, define end to end testing.
+
+- End to end (E2E) testing is the testing of an entire application, hence why it is called end to end. Every function in your app should be put through testing when using E2E testing.
 
 ## Instructions
 
 ### Task 1: Project Set Up
 
-- [ ] Create a forked copy of this project
-- [ ] Clone your OWN version of the repository (Not Lambda's by mistake!)
-- [ ] Implement the project on the main branch, committing changes regularly
-- [ ] Push commits: `git push origin main`
-- [ ] PUSH EVERYTHING TO THE MAIN BRANCH
+- [x] Create a forked copy of this project
+- [x] Clone your OWN version of the repository (Not Lambda's by mistake!)
+- [x] Implement the project on the main branch, committing changes regularly
+- [x] Push commits: `git push origin main`
+- [x] PUSH EVERYTHING TO THE MAIN BRANCH
 
 ### Task 2: Project Requirements
 
@@ -63,6 +71,7 @@ Your finished project must include all of the following requirements:
 - [ ] An Add to Order button that has an id of "order-button" and that submits form and returns a database record of name, size, toppings and special instructions
 
 Data should look something like
+
 ```
 {
     name: string,
@@ -72,6 +81,7 @@ Data should look something like
     special: string,
 }
 ```
+
 where there is a key for name, size and special and they are strings
 and
 there is a key for each of the toppings and they are booleans
@@ -113,4 +123,5 @@ One of your goals is to return a database record of the order - for this you'll 
 Follow these steps for completing your project.
 
 Set up your fork on Github to codegrade following the instructions [here](https://lambdaschool.instructure.com/courses/1675/assignments/51399?module_item_id=617624), pushing commits to your main branch.
+
 - [ ] Your code will be reviewed over the next few days. Read [these instructions](https://www.notion.so/How-to-View-Feedback-in-CodeGrade-c5147cee220c4044a25de28bcb6bb54a) to learn how to view feedback in CodeGrade.
