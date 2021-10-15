@@ -122,6 +122,15 @@ const PizzaForm = (props) => {
           <input type="checkbox" name="extraCheese" />
           Extra Cheese
         </label>
+        {/* Crust Substitute Input */}
+        <div className="pizzaChoiceLabel">
+          <h3>Choice of Substitute</h3>
+          <p>Choose up to 1.</p>
+        </div>
+        <label>
+          <input type="checkbox" name="glutenFreeCrust" />
+          Gluten Free Crust
+        </label>
         {/* Special Instructions Input */}
         <div className="pizzaChoiceLabel">
           <h3>Special Instructions</h3>
@@ -132,6 +141,7 @@ const PizzaForm = (props) => {
           name="specialInstructions"
           placeholder="Anything else you would like to add?"
         />
+        <button id="submit-order">Place Order</button>
       </form>
     </div>
   );
