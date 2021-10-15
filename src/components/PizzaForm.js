@@ -30,11 +30,15 @@ const PizzaForm = (props) => {
     axios
       .post("https://reqres.in/api/orders", pizzaOrder)
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         setOrders(response.data, ...pizzaOrder);
+        // Clearning Form Inputs
+        setFormValues(initialFormValues);
       })
       .catch((error) => {
         console.error(error);
+        // Clearing Form Inputs
+        setFormValues(initialFormValues);
       });
   };
 
@@ -86,6 +90,11 @@ const PizzaForm = (props) => {
   // Side Effects
   // useEffect(getOrders, []);
 
+  // Disable/Enable button if form is valid
+  useEffect(() => {
+    pizzaFormSchema.isValid(formValues).then((valid) => setDisabled(!valid));
+  }, [formValues]);
+
   // Returning Pizza Form
   return (
     <div>
@@ -102,6 +111,7 @@ const PizzaForm = (props) => {
       {/* FORM */}
       <form id="pizza-form" onSubmit={handleSubmit}>
         {/* Buyers Name Input */}
+        <p>{formErrors.buyer}</p>
         <label>
           Name:
           <input

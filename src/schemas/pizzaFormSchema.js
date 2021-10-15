@@ -6,7 +6,7 @@ const pizzaFormSchema = yup.object().shape({
     .string()
     .trim()
     .required("Please write out your name")
-    .min(2, "Name cannot be less that 2 characters"),
+    .min(2, "name must be at least 2 characters"),
   pizzaSize: yup
     .string()
     .oneOf(["small", "medium", "large"], "Please choose a size"),
