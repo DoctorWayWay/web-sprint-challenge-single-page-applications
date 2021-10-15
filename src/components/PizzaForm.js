@@ -1,8 +1,16 @@
 // Library Imports
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import * as yup from "yup";
 
 const PizzaForm = (props) => {
+  // State Management
+
+  const handleChange = (event) => {
+    const { name, type, value, checked } = event.target;
+    const newInputValue = type === "checkbox" ? checked : value;
+  };
+  // Returning Pizza Form
   return (
     <div>
       {/* Intro to form */}
@@ -25,6 +33,7 @@ const PizzaForm = (props) => {
             type="text"
             name="buyer"
             placeholder="First Name"
+            onChange={handleChange}
           />
         </label>
         {/* Pizza Size Input */}
@@ -33,7 +42,7 @@ const PizzaForm = (props) => {
           <p>Required.</p>
         </div>
         <label>
-          <select id="size-dropdown" name="pizzaSize">
+          <select id="size-dropdown" name="pizzaSize" onChange={handleChange}>
             <option value="unSelected">--Select Pizza Sizing--</option>
             <option value="small">Small</option>
             <option value="medium">Medium</option>
@@ -46,19 +55,39 @@ const PizzaForm = (props) => {
           <p>Required.</p>
         </div>
         <label>
-          <input type="radio" name="sauce" value="Original Red" />
+          <input
+            type="radio"
+            name="sauce"
+            value="Original Red"
+            onChange={handleChange}
+          />
           Original Red
         </label>
         <label>
-          <input type="radio" name="sauce" value="Garlic Ranch" />
+          <input
+            type="radio"
+            name="sauce"
+            value="Garlic Ranch"
+            onChange={handleChange}
+          />
           Garlic Ranch
         </label>
         <label>
-          <input type="radio" name="sauce" value="BBQ Sauce" />
+          <input
+            type="radio"
+            name="sauce"
+            value="BBQ Sauce"
+            onChange={handleChange}
+          />
           BBQ Sauce
         </label>
         <label>
-          <input type="radio" name="sauce" value="Spinach Alfredo" />
+          <input
+            type="radio"
+            name="sauce"
+            value="Spinach Alfredo"
+            onChange={handleChange}
+          />
           Spinach Alfredo
         </label>
         {/* Pizza Topping Inputs */}
@@ -67,59 +96,71 @@ const PizzaForm = (props) => {
           <p>Choose up to 10.</p>
         </div>
         <label>
-          <input type="checkbox" name="pepperoni" />
+          <input type="checkbox" name="pepperoni" onChange={handleChange} />
           Pepperoni
         </label>
         <label>
-          <input type="checkbox" name="sausage" />
+          <input type="checkbox" name="sausage" onChange={handleChange} />
           Saucage
         </label>
         <label>
-          <input type="checkbox" name="canadianBacon" />
+          <input type="checkbox" name="canadianBacon" onChange={handleChange} />
           Canadian Bacon
         </label>
         <label>
-          <input type="checkbox" name="spicyItalianSausage" />
+          <input
+            type="checkbox"
+            name="spicyItalianSausage"
+            onChange={handleChange}
+          />
           Spicy Italian Sausage
         </label>
         <label>
-          <input type="checkbox" name="grilledChicker" />
+          <input
+            type="checkbox"
+            name="grilledChicker"
+            onChange={handleChange}
+          />
           Grilled Chicker
         </label>
         <label>
-          <input type="checkbox" name="onions" />
+          <input type="checkbox" name="onions" onChange={handleChange} />
           Onions
         </label>
         <label>
-          <input type="checkbox" name="greenPepper" />
+          <input type="checkbox" name="greenPepper" onChange={handleChange} />
           Green Pepper
         </label>
         <label>
-          <input type="checkbox" name="dicedTomatos" />
+          <input type="checkbox" name="dicedTomatos" onChange={handleChange} />
           Diced Tomatos
         </label>
         <label>
-          <input type="checkbox" name="blackOlives" />
+          <input type="checkbox" name="blackOlives" onChange={handleChange} />
           Black Olives
         </label>
         <label>
-          <input type="checkbox" name="roastedGarlic" />
+          <input type="checkbox" name="roastedGarlic" onChange={handleChange} />
           Roasted Garlic
         </label>
         <label>
-          <input type="checkbox" name="artichokeHearts" />
+          <input
+            type="checkbox"
+            name="artichokeHearts"
+            onChange={handleChange}
+          />
           Artichoke Hearts
         </label>
         <label>
-          <input type="checkbox" name="threeCheese" />
+          <input type="checkbox" name="threeCheese" onChange={handleChange} />
           Three Cheese
         </label>
         <label>
-          <input type="checkbox" name="pineapple" />
+          <input type="checkbox" name="pineapple" onChange={handleChange} />
           Pineapple
         </label>
         <label>
-          <input type="checkbox" name="extraCheese" />
+          <input type="checkbox" name="extraCheese" onChange={handleChange} />
           Extra Cheese
         </label>
         {/* Crust Substitute Input */}
@@ -128,7 +169,11 @@ const PizzaForm = (props) => {
           <p>Choose up to 1.</p>
         </div>
         <label>
-          <input type="checkbox" name="glutenFreeCrust" />
+          <input
+            type="checkbox"
+            name="glutenFreeCrust"
+            onChange={handleChange}
+          />
           Gluten Free Crust
         </label>
         {/* Special Instructions Input */}
@@ -140,7 +185,9 @@ const PizzaForm = (props) => {
           type="text"
           name="specialInstructions"
           placeholder="Anything else you would like to add?"
+          onChange={handleChange}
         />
+        {/* Submit Order Button */}
         <button id="submit-order">Place Order</button>
       </form>
     </div>
