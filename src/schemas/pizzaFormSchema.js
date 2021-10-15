@@ -28,7 +28,7 @@ const pizzaFormSchema = yup.object().shape({
   blackOlives: yup.boolean(),
   roastedGarlic: yup.boolean(),
   artichokeHearts: yup.boolean(),
-  threeCheeses: yup.boolean(),
+  threeCheese: yup.boolean(),
   pineapple: yup.boolean(),
   extraCheese: yup.boolean(),
   // Crust Substitute (checkbox)

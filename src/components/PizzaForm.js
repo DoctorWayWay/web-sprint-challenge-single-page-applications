@@ -7,31 +7,19 @@ import { initialFormValues, initialErrorValues } from "./../data/initialData";
 // Schema Import
 import pizzaFormSchema from "../schemas/pizzaFormSchema";
 
-const PizzaForm = (props) => {
+const PizzaForm = () => {
   // State Management
   const [formValues, setFormValues] = useState(initialFormValues);
   const [formErrors, setFormErrors] = useState(initialErrorValues);
   const [disabled, setDisabled] = useState(true);
   const [orders, setOrders] = useState([]);
 
-  // Axios Calls
-  const getOrders = () => {
-    axios
-      .get("https://reqres.in/api/orders")
-      .then((response) => {
-        console.log(response);
-        setOrders(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
   const postOrder = (pizzaOrder) => {
     axios
       .post("https://reqres.in/api/orders", pizzaOrder)
-      .then((response) => {
-        // console.log(response);
-        setOrders(response.data, ...pizzaOrder);
+      .then(() => {
+        // Update orders state
+        setOrders([...orders, pizzaOrder]);
         // Clearning Form Inputs
         setFormValues(initialFormValues);
       })
@@ -87,8 +75,18 @@ const PizzaForm = (props) => {
     postOrder(pizzaOrder);
   };
 
-  // Side Effects
-  // useEffect(getOrders, []);
+  // Get orders on mount
+  useEffect(() => {
+    axios
+      .get("https://reqres.in/api/orders")
+      .then((response) => {
+        setOrders(response.data.data);
+        console.log("got order list", response.data.data);
+      })
+      .catch((error) => {
+        console.error("couldn't get orders", error);
+      });
+  }, []);
 
   // Disable/Enable button if form is valid
   useEffect(() => {
