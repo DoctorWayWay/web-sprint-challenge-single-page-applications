@@ -2,14 +2,90 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import * as yup from "yup";
+// Initial Data Import
+import { initialFormValues, initialErrorValues } from "./../data/initialData";
+// Schema Import
+import pizzaFormSchema from "../schemas/pizzaFormSchema";
 
 const PizzaForm = (props) => {
   // State Management
+  const [formValues, setFormValues] = useState(initialFormValues);
+  const [formErrors, setFormErrors] = useState(initialErrorValues);
+  const [disabled, setDisabled] = useState(true);
+  const [orders, setOrders] = useState([]);
+
+  // Axios Calls
+  const getOrders = () => {
+    axios
+      .get("https://reqres.in/api/orders")
+      .then((response) => {
+        console.log(response);
+        setOrders(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  const postOrder = (pizzaOrder) => {
+    axios
+      .post("https://reqres.in/api/orders", pizzaOrder)
+      .then((response) => {
+        console.log(response);
+        setOrders(response.data, ...pizzaOrder);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  // Handlers
+  const validate = (name, value) => {
+    yup
+      .reach(pizzaFormSchema, name)
+      .validate(value)
+      .then(() => setFormErrors({ ...formErrors, [name]: "" }))
+      .catch((error) =>
+        setFormErrors({ ...formErrors, [name]: error.errors[0] })
+      );
+  };
 
   const handleChange = (event) => {
     const { name, type, value, checked } = event.target;
     const newInputValue = type === "checkbox" ? checked : value;
+    //
+    validate(name, newInputValue);
+    setFormValues({ ...formValues, [name]: newInputValue });
   };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const pizzaOrder = {
+      buyer: formValues.buyer.trim(),
+      pizzaSize: formValues.pizzaSize,
+      sauce: formValues.sauce,
+      pepperoni: formValues.pepperoni,
+      sausage: formValues.sausage,
+      canadianBacon: formValues.canadianBacon,
+      spicyItalianSausage: formValues.spicyItalianSausage,
+      grilledChicken: formValues.grilledChicken,
+      onions: formValues.onions,
+      greenPepper: formValues.greenPepper,
+      dicedTomatoes: formValues.dicedTomatoes,
+      blackOlives: formValues.blackOlives,
+      roastedGarlic: formValues.roastedGarlic,
+      artichokeHearts: formValues.artichokeHearts,
+      threeCheese: formValues.threeCheese,
+      pineapple: formValues.pineapple,
+      extraCheese: formValues.extraCheese,
+      glutenFreeCrust: formValues.glutenFreeCrust,
+      specialInstructions: formValues.specialInstructions,
+    };
+    postOrder(pizzaOrder);
+  };
+
+  // Side Effects
+  // useEffect(getOrders, []);
+
   // Returning Pizza Form
   return (
     <div>
@@ -24,7 +100,7 @@ const PizzaForm = (props) => {
         />
       </div>
       {/* FORM */}
-      <form id="pizza-form">
+      <form id="pizza-form" onSubmit={handleSubmit}>
         {/* Buyers Name Input */}
         <label>
           Name:
@@ -42,6 +118,7 @@ const PizzaForm = (props) => {
           <p>Required.</p>
         </div>
         <label>
+          Size:
           <select id="size-dropdown" name="pizzaSize" onChange={handleChange}>
             <option value="unSelected">--Select Pizza Sizing--</option>
             <option value="small">Small</option>
@@ -188,7 +265,9 @@ const PizzaForm = (props) => {
           onChange={handleChange}
         />
         {/* Submit Order Button */}
-        <button id="submit-order">Place Order</button>
+        <button id="submit-order" disabled={disabled}>
+          Place Order
+        </button>
       </form>
     </div>
   );
