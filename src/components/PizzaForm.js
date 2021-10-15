@@ -14,17 +14,18 @@ const PizzaForm = () => {
   const [disabled, setDisabled] = useState(true);
   const [orders, setOrders] = useState([]);
 
+  // Axios calls
   const postOrder = (pizzaOrder) => {
     axios
       .post("https://reqres.in/api/orders", pizzaOrder)
-      .then(() => {
+      .then((response) => {
         // Update orders state
-        setOrders([...orders, pizzaOrder]);
-        // Clearning Form Inputs
-        setFormValues(initialFormValues);
+        setOrders([...orders, response.data]);
       })
       .catch((error) => {
         console.error(error);
+      })
+      .finally(() => {
         // Clearing Form Inputs
         setFormValues(initialFormValues);
       });
@@ -44,7 +45,6 @@ const PizzaForm = () => {
   const handleChange = (event) => {
     const { name, type, value, checked } = event.target;
     const newInputValue = type === "checkbox" ? checked : value;
-    //
     validate(name, newInputValue);
     setFormValues({ ...formValues, [name]: newInputValue });
   };
@@ -76,17 +76,17 @@ const PizzaForm = () => {
   };
 
   // Get orders on mount
-  useEffect(() => {
-    axios
-      .get("https://reqres.in/api/orders")
-      .then((response) => {
-        setOrders(response.data.data);
-        console.log("got order list", response.data.data);
-      })
-      .catch((error) => {
-        console.error("couldn't get orders", error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get("https://reqres.in/api/orders")
+  //     .then((response) => {
+  //       console.log(response.data.data);
+  //       setOrders([...orders, response.data.data]);
+  //     })
+  //     .catch((error) => {
+  //       console.error("couldn't get orders", error);
+  //     });
+  // }, []);
 
   // Disable/Enable button if form is valid
   useEffect(() => {
@@ -273,7 +273,7 @@ const PizzaForm = () => {
           onChange={handleChange}
         />
         {/* Submit Order Button */}
-        <button id="submit-order" disabled={disabled}>
+        <button id="order-button" disabled={disabled}>
           Place Order
         </button>
       </form>
